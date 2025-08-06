@@ -1,0 +1,49 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# dotenv environment variable files
+.env
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database dumps or local DB files
+*.sqlite
+*.sqlite3
+*.db
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Compiled files
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+
+# Sequelize CLI folders (if using migrations or seeders)
+migrations/
+seeders/
+models/
+
+# Optional: logs or local storage for pg or sequelize
+*.log
+.pgdata/

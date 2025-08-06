@@ -13,6 +13,11 @@ db.sequelize.sync().then(() => {
   console.log("Synced DB.");
 });
 
+app.get('/', (req, res) => {
+  res.send('🚀 Hello from the Express API!');
+});
+
+
 app.use("/api/todos", require("./routes/todo.routes"));
 
 app.listen(PORT, () => {

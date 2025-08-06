@@ -33,7 +33,7 @@ db.sequelize.sync().then(() => {
 });
 
 app.get('/', (req, res) => {
-  res.send('🚀 Hello from the Express!!!');
+  res.send('🚀 Hello from the Express!');
 });
 
 

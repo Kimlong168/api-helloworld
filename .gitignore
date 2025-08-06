@@ -43,7 +43,6 @@ build/
 # Sequelize CLI folders (if using migrations or seeders)
 migrations/
 seeders/
-models/
 
 # Optional: logs or local storage for pg or sequelize
 *.log

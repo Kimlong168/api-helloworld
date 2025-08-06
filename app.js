@@ -1,9 +1,11 @@
+require("dotenv").config(); // 👈 MUST be at the top
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./models");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // 👈 use env port if available
 
 app.use(bodyParser.json());
 

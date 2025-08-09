@@ -1,18 +1,51 @@
-name: 🚀 Deploy to Server on Push
+# name: 🚀 Deploy to Server on Push
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     name: Deploy via SSH
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: ⬇️ Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: 🔐 SSH & Deploy
+#         uses: appleboy/ssh-action@v1.0.0
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.SSH_USER }}
+#           key: ${{ secrets.SSH_KEY }}
+#           script: |
+#             bash /var/www/api-helloworld/deploy.sh
+
+name: 🚀 Deploy on Release
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]   # only when you click "Publish release"
+  workflow_dispatch:      # optional manual trigger
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
 
 jobs:
   deploy:
     name: Deploy via SSH
     runs-on: ubuntu-latest
+    # skip prereleases; remove this 'if' if you want to deploy prereleases too
+    if: github.event.release.prerelease == false
 
     steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v3
+      - name: ⬇️ Checkout (not strictly required for remote deploy)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 🔐 SSH & Deploy
         uses: appleboy/ssh-action@v1.0.0
@@ -21,4 +54,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            bash /var/www/api-helloworld/deploy.sh
+            set -e
+            TAG="${{ github.event.release.tag_name }}"
+            echo "Publishing release tag: $TAG"
+            bash /var/www/api-helloworld/deploy.sh "$TAG"
